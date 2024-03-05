@@ -16,7 +16,6 @@ export default function CountriesPage() {
       // console.log(countries);
         const slicedData = countriesBox.slice(0,5)
          slicedData.map((item)=> {
-          // fiveItems.push(item.name.common)
           console.log('country:', item.name.common);
         })
         // console.log(fiveItems)
