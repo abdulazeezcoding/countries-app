@@ -1,29 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "../components/navbar";
+import axios from "axios";
 
 export default function CountriesPage() {
     const url = 'https://restcountries.com/v3.1/all';
-    console.log(url);
+    // const [countries, setCountries] = useState([fiveItems]);
 
-    // function displayCountries() {
-    //     let allCountries = fetch(url).then((response)=> {
-    //         console.log('country', response.json())
-    //     })
-    // }
-    //     displayCountries();
+    // let countriesBox;
+    // let fiveItems = countries;
+
 
     async function displayAllCountries() {
-        const countries = await fetch(url)
-        console.log("countries", countries.json())
+        const countries = await axios.get(url);
+        const countriesBox = countries.data;
+      // console.log(countries);
+        const slicedData = countriesBox.slice(0,5)
+         slicedData.map((item)=> {
+          // fiveItems.push(item.name.common)
+          console.log('country:', item.name.common);
+        })
+        // console.log(fiveItems)
+        return countries;
     }
 
-    displayAllCountries()
+    displayAllCountries();
+
 
   return (
     <>
       <Navbar />
 
-      <p>This is the countries page</p>
+    
+      <p>Countries Page</p>
     </>
   );
 }
