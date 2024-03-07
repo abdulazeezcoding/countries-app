@@ -18,9 +18,8 @@ function App() {
 
       <Route path='/countriesPage' element={<CountriesPage/>}></Route>
 
-      <Route path='/gallery' element={<GalleryPage />}></Route>
 
-      <Route path='/country' element={<CountryPage />}></Route>
+      <Route path='/country/:countryName' element={<CountryPage />}></Route>
 
     </Routes>
   </BrowserRouter>

@@ -1,36 +1,45 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../components/navbar";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default function CountriesPage() {
+  const [country, setCountry] = useState([]);
     const url = 'https://restcountries.com/v3.1/all';
-    // const [countries, setCountries] = useState([fiveItems]);
-
-    // let countriesBox;
-    // let fiveItems = countries;
 
 
+  useEffect (()=> {
     async function displayAllCountries() {
+      try {
         const countries = await axios.get(url);
         const countriesBox = countries.data;
-      // console.log(countries);
-        const slicedData = countriesBox.slice(0,5)
-         slicedData.map((item)=> {
-          console.log('country:', item.name.common);
-        })
-        // console.log(fiveItems)
-        return countries;
-    }
+        setCountry(countriesBox)
+      } catch (error) {
+        console.log(error)
+      }
 
-    displayAllCountries();
+      } 
+  
 
+  displayAllCountries();
 
+  }, [])
+    console.log('country', country)
+ 
   return (
     <>
       <Navbar />
-
-    
-      <p>Countries Page</p>
+      <h1>Countries Page</h1>
+      <div className="outer-div">
+        {country.slice(100,110).map((item)=> (
+        <div className="inner-div">
+         <div className="img-div"> <img src={item.flags.png} alt={item.flags.alt} className="flag" /> </div>
+          <h2>{item.name.common}</h2>
+          <h3>{item.name.official}</h3>
+          <Link to={`/country/${item.name.common}`}><button className="btn">Learn More</button></Link>
+        </div>    
+        ))}
+      </div>
     </>
   );
 }
